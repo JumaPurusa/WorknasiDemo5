@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/home"
+    android:icon="@drawable/ic_home"
+    android:title="Home"
+    app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/available_space"
+        android:icon="@drawable/ic_view"
+        android:title="Available"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/add"
+        android:icon="@drawable/ic_add"
+        android:title="Add Space"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/account"
+        android:icon="@drawable/ic_person"
+        android:title="Account"
+        app:showAsAction="ifRoom"/>
+</menu>

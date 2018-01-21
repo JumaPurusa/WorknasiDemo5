@@ -1,0 +1,19 @@
+{
+  "city_scripts": [{
+    "city_id": "1",
+    "state_id": "1",
+    "city_name": "Ada State"
+  }, {
+    "city_id": "2",
+    "state_id": "1",
+    "city_name": "Msasani Village"
+  }, {
+    "city_id": "3",
+    "state_id": "1",
+    "city_name": "Mwananyamala"
+  }, {
+    "city_id": "4",
+    "state_id": "1",
+    "city_name": "Vijana Tower"
+  }]
+}
