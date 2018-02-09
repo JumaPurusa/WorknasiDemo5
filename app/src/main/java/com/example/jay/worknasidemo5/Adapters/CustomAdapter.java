@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jay.worknasidemo5.Model.OfficeRoom;
@@ -40,7 +41,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         // get the data from the data array
         OfficeRoom current = office_list.get(position);
@@ -51,6 +52,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.roomType.setText(current.getRoomType());
         holder.price.setText(String.valueOf(current.getPrice()));
         holder.duration.setText(current.getDuration());
+
+        holder.card.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "Item " + position, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ); 
     }
 
 

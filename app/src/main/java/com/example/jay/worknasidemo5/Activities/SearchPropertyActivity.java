@@ -1,5 +1,6 @@
 package com.example.jay.worknasidemo5.Activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import com.example.jay.worknasidemo5.Adapters.CustomRowOneAdapter;
@@ -38,12 +40,18 @@ import java.util.List;
  * Created by Jay on 11/23/2017.
  */
 
-public class SearchPropertyActivity extends AppCompatActivity {
+public class SearchPropertyActivity extends AppCompatActivity implements CustomRowOneAdapter.OnItemClickListener {
+
+    public static final String OFFICE_URL = "imageUrl";
+    public static final String ROOM_TITLE = "title";
+    //public static final String ROOM_TYPE = "type";
+    //public static final String ROOM_PRICE = "price";
+    //public static final String ROOM_DURATION = "duration";
 
     private RecyclerView recyclerView;
     private CustomRowOneAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    List<OfficeRoom> office_list = new ArrayList<>();
+    public  List<OfficeRoom> office_list = new ArrayList<>();
 
 
     @Override
@@ -70,6 +78,8 @@ public class SearchPropertyActivity extends AppCompatActivity {
         adapter = new CustomRowOneAdapter(this, office_list);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(SearchPropertyActivity.this);
+
         Load_data load_data = new Load_data();
         load_data.execute(location);
 
@@ -83,6 +93,18 @@ public class SearchPropertyActivity extends AppCompatActivity {
             }
         });
         */
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(SearchPropertyActivity.this, PropertyDetailActivity.class);
+        OfficeRoom officeRoom = office_list.get(position);
+        intent.putExtra(OFFICE_URL, officeRoom.getRoomImage())
+              .putExtra(ROOM_TITLE, officeRoom.getRoomTitle());
+
+        Toast.makeText(this, officeRoom.getRoomImage(), Toast.LENGTH_SHORT ).show();
+        startActivity(intent);
+
     }
 
     public class Load_data extends AsyncTask<String, Void, Void> {

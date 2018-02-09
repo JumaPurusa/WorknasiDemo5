@@ -1,14 +1,19 @@
 package com.example.jay.worknasidemo5.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.jay.worknasidemo5.Activities.PropertyDetailActivity;
 import com.example.jay.worknasidemo5.Model.OfficeRoom;
 import com.example.jay.worknasidemo5.R;
 
@@ -23,6 +28,7 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
 
     Context context;
     List<OfficeRoom> office_list = null;
+    private OnItemClickListener mListener;
 
     public CustomRowOneAdapter(Context context, List<OfficeRoom> list){
         this.context = context;
@@ -34,6 +40,14 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
         office_list.add(room);
     }
     */
+
+     public interface OnItemClickListener{
+          void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,10 +62,10 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         // get the data from the data array
-        OfficeRoom current = office_list.get(position);
+        final OfficeRoom current = office_list.get(position);
 
         holder.roomTitle.setText(current.getRoomTitle());
         holder.roomType.setText(current.getRoomType());
@@ -61,6 +75,20 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
         Glide.with(context)
                 .load("http://app.worknasi.com/app-content/uploads/2018/01/" + current.getRoomImage())
                 .into(holder.roomImage);
+
+       /* holder.topLinear.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(context, "Item " + position, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, PropertyDetailActivity.class)
+                               .putExtra("position", position);
+                        context.startActivity(intent);
+                    }
+                }
+        );
+        */
     }
 
 
@@ -75,9 +103,9 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
 
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        //public CardView card;
+        public LinearLayout topLinear;
         public ImageView roomImage;
         public TextView roomTitle;
         public TextView roomType;
@@ -92,7 +120,21 @@ public class CustomRowOneAdapter extends RecyclerView.Adapter<CustomRowOneAdapte
             roomType = itemView.findViewById(R.id.roomType);
             price = itemView.findViewById(R.id.price);
             duration = itemView.findViewById(R.id.duration);
-            //card = itemView.findViewById(R.id.card_view);
+            topLinear = itemView.findViewById(R.id.topLinear);
+
+            itemView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                             if(mListener != null){
+                                  int position = getAdapterPosition();
+                                  if(position != RecyclerView.NO_POSITION){
+                                      mListener.onItemClick(position);
+                                  }
+                             }
+                        }
+                    }
+            );
         }
     }
 }

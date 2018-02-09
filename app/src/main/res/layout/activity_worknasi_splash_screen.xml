@@ -12,14 +12,14 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <TextView
+       <!-- <TextView
             android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  OFFICE SPACE AND \n    MEETING ROOMS \n      FOR EVERYONE"
             android:textSize="20sp"
             android:textColor="#000"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
